@@ -1,0 +1,5 @@
+/Users/admin/Projects/EventRegistration/obj/Debug/netcoreapp2.1/EventRegistration.csprojAssemblyReference.cache
+/Users/admin/Projects/EventRegistration/obj/Debug/netcoreapp2.1/EventRegistration.RazorAssemblyInfo.cache
+/Users/admin/Projects/EventRegistration/obj/Debug/netcoreapp2.1/EventRegistration.RazorAssemblyInfo.cs
+/Users/admin/Projects/EventRegistration/obj/Debug/netcoreapp2.1/EventRegistration.AssemblyInfoInputs.cache
+/Users/admin/Projects/EventRegistration/obj/Debug/netcoreapp2.1/EventRegistration.AssemblyInfo.cs
