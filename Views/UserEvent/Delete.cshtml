@@ -1,0 +1,63 @@
+﻿@model EventRegistration.Models.UserEventRegistration
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>UserEventRegistration</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Group)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Group)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UniversityGraduationDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UniversityGraduationDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FullName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FullName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Phone)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DateRegistraion)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DateRegistraion)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.StatusRegistration)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.StatusRegistration)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Email" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>
