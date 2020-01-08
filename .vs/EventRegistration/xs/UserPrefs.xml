@@ -1,9 +1,9 @@
 ﻿<Properties StartupConfiguration="{A6EDF24C-E368-4E92-8AC7-B54AC870252B}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Controllers/HomeController2.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Controllers/HomeController.cs">
     <Files>
       <File FileName="Views/Home/Index.cshtml" Line="7" Column="35" />
-      <File FileName="Controllers/HomeController.cs" Line="21" Column="40" />
-      <File FileName="Helpers/EmailService.cs" Line="26" Column="10" />
+      <File FileName="Controllers/HomeController.cs" Line="23" Column="57" />
+      <File FileName="Helpers/EmailService.cs" Line="31" Column="84" />
       <File FileName="Controllers/HomeController2.cs" Line="1" Column="1" />
     </Files>
     <Pads>
@@ -12,7 +12,7 @@
           <Node name="EventRegistration" expanded="True">
             <Node name="EventRegistration" expanded="True">
               <Node name="Controllers" expanded="True">
-                <Node name="HomeController2.cs" selected="True" />
+                <Node name="HomeController.cs" selected="True" />
               </Node>
               <Node name="Helpers" expanded="True" />
               <Node name="Models" expanded="True" />
