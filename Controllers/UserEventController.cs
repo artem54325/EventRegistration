@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using ClosedXML.Excel;
+using EventRegistration.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Data;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using EventRegistration.Models;
 
 namespace EventRegistration.Controllers
 {
@@ -25,7 +25,7 @@ namespace EventRegistration.Controllers
         }
 
         // GET: UserEvent/Details/5
-        public async Task<IActionResult> Details(string id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
@@ -33,7 +33,7 @@ namespace EventRegistration.Controllers
             }
 
             var userEventRegistration = await _context.UserEventRegistrations
-                .FirstOrDefaultAsync(m => m.Email == id);
+                .FirstOrDefaultAsync(m => m.ID == id);
             if (userEventRegistration == null)
             {
                 return NotFound();
@@ -53,7 +53,7 @@ namespace EventRegistration.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Email,Group,UniversityGraduationDate,Description,FullName,Phone,DateRegistraion,StatusRegistration")] UserEventRegistration userEventRegistration)
+        public async Task<IActionResult> Create([Bind("ID,Email,Group,UniversityGraduationDate,Description,FullName,Phone,DateRegistraion,StatusRegistration")] UserEventRegistration userEventRegistration)
         {
             if (ModelState.IsValid)
             {
@@ -65,7 +65,7 @@ namespace EventRegistration.Controllers
         }
 
         // GET: UserEvent/Edit/5
-        public async Task<IActionResult> Edit(string id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
@@ -85,9 +85,9 @@ namespace EventRegistration.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Email,Group,UniversityGraduationDate,Description,FullName,Phone,DateRegistraion,StatusRegistration")] UserEventRegistration userEventRegistration)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Email,Group,UniversityGraduationDate,Description,FullName,Phone,DateRegistraion,StatusRegistration")] UserEventRegistration userEventRegistration)
         {
-            if (id != userEventRegistration.Email)
+            if (id != userEventRegistration.ID)
             {
                 return NotFound();
             }
@@ -101,7 +101,7 @@ namespace EventRegistration.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!UserEventRegistrationExists(userEventRegistration.Email))
+                    if (!UserEventRegistrationExists(userEventRegistration.ID))
                     {
                         return NotFound();
                     }
@@ -116,7 +116,7 @@ namespace EventRegistration.Controllers
         }
 
         // GET: UserEvent/Delete/5
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
@@ -124,7 +124,7 @@ namespace EventRegistration.Controllers
             }
 
             var userEventRegistration = await _context.UserEventRegistrations
-                .FirstOrDefaultAsync(m => m.Email == id);
+                .FirstOrDefaultAsync(m => m.ID == id);
             if (userEventRegistration == null)
             {
                 return NotFound();
@@ -136,7 +136,7 @@ namespace EventRegistration.Controllers
         // POST: UserEvent/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var userEventRegistration = await _context.UserEventRegistrations.FindAsync(id);
             _context.UserEventRegistrations.Remove(userEventRegistration);
@@ -144,9 +144,45 @@ namespace EventRegistration.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool UserEventRegistrationExists(string id)
+        private bool UserEventRegistrationExists(int id)
         {
-            return _context.UserEventRegistrations.Any(e => e.Email == id);
+            return _context.UserEventRegistrations.Any(e => e.ID == id);
+        }
+
+        [HttpPost]
+        public FileResult Export()
+        {
+            DataTable dt = getData();
+            //Name of File  
+            string fileName = "Sample.xlsx";
+            using (XLWorkbook wb = new XLWorkbook())
+            {
+                //Add DataTable in worksheet  
+                wb.Worksheets.Add(dt);
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    wb.SaveAs(stream);
+                    //Return xlsx Excel File  
+                    return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
+                }
+            }
+        }
+
+        public DataTable getData()
+        {
+            //Creating DataTable  
+            DataTable dt = new DataTable();
+            //Setiing Table Name  
+            dt.TableName = "EmployeeData";
+            //Add Columns  
+            dt.Columns.Add("ID", typeof(int));
+            dt.Columns.Add("Name", typeof(string));
+            dt.Columns.Add("City", typeof(string));
+            //Add Rows in DataTable  
+            dt.Rows.Add(1, "Anoop Kumar Sharma", "Delhi");
+            dt.Rows.Add(2, "Andrew", "U.P.");
+            dt.AcceptChanges();
+            return dt;
         }
     }
 }

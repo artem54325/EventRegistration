@@ -25,10 +25,13 @@ namespace EventRegistration.Controllers
         }
 
         [HttpPost]
-        public JObject UserRegistration(UserEventRegistration user)
+        public async Task<JObject> UserRegistrationAsync(UserEventRegistration user)
         {
             JObject j = new JObject();
-            j.Add("status", true);
+
+            applicationContext.Add(user);
+
+            await applicationContext.SaveChangesAsync();
 
             return j;
         }

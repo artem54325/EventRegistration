@@ -6,6 +6,7 @@ namespace EventRegistration.Models
     public class UserEventRegistration
     {
         [Key]
+        public int ID { get; set; }
         public string Email { get; set; }
         public string Group { get; set; }
         public string UniversityGraduationDate { get; set; }
